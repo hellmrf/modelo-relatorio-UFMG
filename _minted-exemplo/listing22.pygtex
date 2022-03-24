@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}align*\PYG{n+nb}{\PYGZcb{}}
+    3\PYG{n+nb}{\PYGZca{}\PYGZob{}}2(n+1)+2\PYG{n+nb}{\PYGZcb{}} \PYGZhy{} 8(n+1) \PYGZhy{}9 \PYG{n+nb}{\PYGZam{}}= 3\PYG{n+nb}{\PYGZca{}\PYGZob{}}2n+2+2\PYG{n+nb}{\PYGZcb{}} \PYGZhy{} 8n \PYGZhy{}9 \PYG{k}{\PYGZbs{}\PYGZbs{}}
+    \PYG{n+nb}{\PYGZam{}}= (3\PYG{n+nb}{\PYGZca{}\PYGZob{}}2n+2\PYG{n+nb}{\PYGZcb{}})3\PYG{n+nb}{\PYGZca{}}2 \PYGZhy{} 8n \PYGZhy{} 17 \PYG{k}{\PYGZbs{}\PYGZbs{}}
+    \PYG{n+nb}{\PYGZam{}}= (3\PYG{n+nb}{\PYGZca{}\PYGZob{}}2n+2\PYG{n+nb}{\PYGZcb{}})9 \PYGZhy{} 8n \PYGZhy{} 17
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}align*\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

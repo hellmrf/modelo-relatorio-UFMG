@@ -1,0 +1,270 @@
+% arara: xelatex
+% arara: xelatex
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ATENÇÃO!
+%% Para compilar este documento, use o compilador de sua preferência
+%% (recomenda-se xelatex ou lualatex) com a flag --shel-escape. 
+%% Por exemplo, caso escolha o xelatex, compile com: 
+%%     xelatex --shell-escape relatorio.tex
+%% na linha de comando. Isso é necessário para renderizar corretamente
+%% os códigos do documento.
+%% Outra opção é usar o arara:
+%%     arara relatorio.tex
+%% 
+%% Caso esteja usando um editor LaTeX como o TeX studio,
+%% você verá um aviso. Aceite-o e o documento será compilado.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,oneside,a4paper,english,brazil]{abntex2}
+
+\usepackage{UFMG}                 % Capa com logo da UFMG
+\usepackage{indentfirst}          % Indenta o primeiro parágrafo de cada seção.
+
+% Nas linhas a seguir, você pode escolher uma fonte para usar. 
+% Deixe no máximo uma descomentada (sem começar com %).
+\usepackage{lmodern}              % Usa a fonte Latin Modern
+% \usepackage{fspdefault}         % Usa a fonte New Computer Modern (xelatex/lualatex)
+% \usepackage{fourier}            % Usa a fonte Fourier (pdflatex)
+% \usepackage{fourier-otf}        % Usa a fonte Fourier (xelatex/lualatex)
+% \usetimesfont                   % Usa a fonte Times
+
+% As duas linhas a seguir podem ser removidas no seu documento final.
+\usepackage{lipsum}               % Apenas para gerar texto aleatório (dummy text)
+\usepackage[frozencache]{minted} \newmintinline[ltx]{latex}{} % Apenas para este documento de exemplo.
+
+% ---
+% Compile o documento uma vez se quiser entender o que cada um desses campos significa.
+
+\titulo{Guia básico para escrever relatórios com \LaTeX\ e a classe \abnTeX.} % Coloque aqui o título do relatório
+\autor{Héliton Martins Reis Filho}   % Nome do autor
+\local{Belo Horizonte, MG}
+\data{2020}
+\disciplina{Nome da disciplina} % Este comando pode ser removido se não for necessário
+
+\begin{document}
+ \imprimircapa
+ \textual
+ \chapter{Capítulo}
+      Aqui começa o texto propriamente dito. Compile este texto e acompanhe, simultaneamente, o texto compilado e o código \LaTeX\ associado.
+      
+      Este modelo é baseado na classe \abnTeX. A customização e este breve tutorial são de autoria de Héliton Martins (\href{https://t.me/helitonmrf}{@helitonmrf}). Sinta-se à vontade para contatar em caso de qualquer problema com a customização.
+      
+      \section{Instalando uma distribuição \LaTeX\ e um editor}
+      
+        Como qualquer ferramenta, é necessário instalá-la no computador. Em particular, instalaremos uma distribuição \LaTeX\ e um editor.
+        
+        Como você pode ter percebido, o \LaTeX\ é um programa que lê um código-fonte e o converte para PDF (ou \texttt{dvi}, ou \texttt{ps}\ldots). Ele é a única coisa fundamental para usá-lo e é instalado através de uma ``distribuição'' (de maneira semelhante aos sistemas Linux). Entretanto, se você tentou abrir este código-fonte (\texttt{relatorio.tex}), deve ter percebido que não é muito fácil lê-lo em editores como Bloco de Notas. É aí que o editor faz a diferença.
+        
+        Aqui recomendarei o \TeX studio, mas outros editores estão disponíveis.
+        
+            \subsection{Linux}
+            
+                A distribuição \LaTeX\ mais comum no mundo Linux é o \TeX\ live. Muitas distribuições Linux já o possuem em seus repositórios. Se você estiver usando Ubuntu, simplesmente execute o seguinte em um terminal.
+                
+                \begin{center}\ltx|sudo apt install texlive-latex-extra texstudio|\end{center}
+                
+                Isso instalará o \TeX\ live e o editor \TeX studio. Caso esteja com espaço em disco sobrando, substitua \texttt{texlive-latex-extra} por \texttt{texlive-full} para instalar todos os pacotes ($ \approx $ 5,9 GB!).
+                
+                Para outras distribuições Linux/UNIX, consulte: \url{https://www.tug.org/texlive/}.
+
+                O \href{https://miktex.org/}{MiK\TeX} também está disponível agora para Linux. A principal diferença é que ele baixa os pacotes necessários à medida que o usuário necessita.
+                
+            \subsection{Windows}
+                
+                No Windows, siga o procedimento padrão para a instalação de qualquer programa: consulte o site do MiK\TeX\ (\url{https://miktex.org/}), faça o \emph{download} e instale.
+                
+            \subsection{Um editor: o \TeX studio}
+            
+                O \TeX studio é um editor \LaTeX\ muito popular e disponível para os principais sistemas operacionais. Para instalá-lo, visite: \url{https://www.texstudio.org/}. No Linux, ele provavelmente está disponível também no seu gerenciador de pacotes.
+                
+            \subsection{Pós-instalação}
+            
+                Se tudo correu bem, você deve ser capaz de abrir este código-fonte (\texttt{relatorio.tex}) no \TeX studio e utilizar o botão \emph{Build \& View} para visualizar o PDF recém-compilado.
+      
+      
+      \section{Inserindo figuras e tabelas no \TeX studio}
+     
+          Para inserir figuras, arraste um arquivo (de preferência dentro da pasta do projeto) para dentro do \TeX studio, ou siga o exemplo da Figura~\ref{fig:ufmglogo}. Avalie o código fonte para verificar como a referência ao número da figura foi feita. Observe que \ltx|\ref{fig:ufmglogo}| referencia a figura que contém \ltx|\label{fig:ufmglogo}|.
+          
+          % Esta é a "Figura 1". Os comandos são auto-explicativos.
+          \begin{figure}[htp]
+            \centering
+            \includegraphics[width=0.3\linewidth]{UFMG_logo}
+            \caption{Logotipo da UFMG.}
+            \label{fig:ufmglogo}
+          \end{figure} %
+            
+          Inserir tabelas também é possível através do \TeX studio, mas recomendo utilizar o padrão da classe \abnTeX, conforme a Tabela~\ref{tab:tabela}. %
+         
+          \begin{table}[htp]
+             \renewcommand{\arraystretch}{1.5} % tamanho da linha
+             \IBGEtab{%
+                 \caption{Distribuição das reservas de petróleo e de gás natural no mundo.} % Legenda
+                 \label{tab:tabela} % Label para usar com \ref{}
+             }{\begin{tabular}{lcc} % uma letra para cada coluna. pode ser c (centered), l (left) ou r (right). Também pode conter | para indicar linhas verticais.
+                     \toprule % linha horizontal na tabela
+                     
+                     & Distribuição de petróleo no mundo (\%) & Distribuição de gás natural no mundo (\%) \\ % cada coluna é separada por um &
+                     
+                     \midrule
+                     
+                     América do Norte & 3,5 & 5,0 \\ % toda linha da tabela termina com \\, exceto a última
+                     América Latina & 13,0 & 6,0 \\
+                     Europa & 2,0 & 3,6 \\
+                     Ex-União Soviética & 6,3 & 38,7 \\
+                     Oriente Médio & 64,0 & 33,0 \\
+                     África & 7,2 & 7,7 \\
+                     Ásia/Oceania & 4,0 & 6,0 \\
+                     
+                     \bottomrule
+                 \end{tabular}%
+             }{\fonte{ENEM -- 2005}} %Fonte.
+           \end{table}
+    
+        Observe também, no código da tabela, que, para mostrar o símbolo \%, é necessário escrever \ltx|\%|. Isso acontece porque o caractere \% é, normalmente, um comentário no \LaTeX, sendo necessário dizer ao compilador que queremos escrevê-lo tal qual está.
+        % Por isso, esta parte do código não aparece no PDF final. 
+        % Os comentários servem para explicar trechos do código.
+
+\chapter{Dividindo o texto} \label{cap:dividindo_o_texto}
+
+     Você pode usar comandos para separar seu texto. Isto, por exemplo, é um capítulo (o capítulo~\ref{cap:dividindo_o_texto}, para ser preciso). Os comandos para essas separações são \ltx|\part{}|, \ltx|\chapter{}|, \ltx|\section{}|, \ltx|\subsection{}| e \ltx|\subsubsection{}| (a hierarquia segue essa mesma ordem). Todos serão acompanhados com chaves contendo o texto, conforme mostrado no código fonte.
+    
+     \section{Seção}
+        \lipsum[1] % Este comando (\lipsum) vem do pacote lipsum importado na linha 15. Ele serve apenas para gerar texto aleatório em latim (dummy text, ou texto falso).
+    
+         \subsection{Subseção}
+            \lipsum[2] % dummy text
+        
+             \subsubsection{Subsubseção}
+                \lipsum[3] % dummy text
+                
+                Como você pode observar, capítulos sempre começarão em novas páginas.
+
+
+\chapter{Matemática: a grande estrela do \LaTeX}
+
+    A facilidade de inserção de fórmulas matemáticas no \LaTeX\ é uma das grandes estrelas do compilador. A qualidade com a qual são tipografadas as equações e a facilidade para gerenciá-las realmente é um grande diferencial desta ferramenta, como pode ser visto na equação \eqref{eq:teo_fund_calc}. Neste capítulo, apresentarei brevemente os ambientes mais simples para tipografia de matemática presentes no \LaTeX, bem como uma ferramenta online para te ajudar a entender os primeiros comandos.
+    
+    \begin{equation}\label{eq:teo_fund_calc}
+    f(x) = \int\limits_{0}^{x} f'(t) dt
+    \end{equation}
+
+    \section{Matemática \emph{inline}}
+    
+        Muitas vezes, queremos nos referir ao polinômio $ 5x^5 + 4x^4 + 3x^3 + 2x^2 + x $ para tornar algo explícito. Ou queremos dizer que, especialmente quando $ x \to \infty $, algo incrível ocorre. Nesses casos, utilizamos o ambiente matemático em linha. Ele simplesmente segue o fluxo do texto e é delimitado pelo cifrão: 
+        \begin{minted}[autogobble]{latex}
+            $ 5x^5 + 4x^4 + 3x^3 + 2x^2 + x $
+        \end{minted}
+        mostraria o mesmo polinômio acima. Parênteses especiais também podem ser utilizados de maneira totalmente equivalente\footnote{Não são equivalentes, na verdade. \ltx|$ ... $| é uma primitiva do \TeX\ e, portanto, é robusto; \ltx|\( ... \)| é um comando \LaTeX\ e é frágil, mas você não precisa se preocupar com isso agora. A propósito, é assim que se inserem notas de rodapé.}: \ltx|\( ... \)|.
+    
+    \section{Equação separada, mas não numerada}
+    
+        Outras vezes, queremos dizer que o teorema de Pitágoras, dado por \[ a^2 = b^2 + c^2\,, \] é um importante teorema matemático. Nesses casos, usamos o ambiente com colchetes (\ltx|\[ ... \]|) para definir uma equação separada do texto e centralizada. Veja, no entanto, que esse ambiente não cria um novo parágrafo, o que é denunciado pela ausência da indentação no começo desta linha.
+    
+    \section{Uma equação enumerada e referenciável}
+    
+        Algumas equações são realmente muito importantes, e não constituem o caminho para um resultado, mas o resultado em si. Esse tipo de equação é, em geral, referenciado várias vezes depois. O Teorema Fundamental do Cálculo, mostrado em \eqref{eq:teo_fund_calc}, é um caso potencial para o uso de um ambiente \ltx|equation|, para podermos referenciá-lo depois. Ele é usado assim:
+        
+        \begin{minted}[autogobble]{latex}
+            \begin{equation}\label{eq:euler}
+                e^{i\pi} = -1
+            \end{equation}
+        \end{minted}
+        
+        O resultado está em \eqref{eq:euler}. \ltx|\label{}| é opcional, mas, sem esse comando, é impossível referenciar a equação mais tarde. Isso se faz com o comando \ltx|\eqref| (do pacote \texttt{amsmath}, já importado pelo pacote \texttt{UFMG}).
+        
+        \begin{equation}\label{eq:euler}
+            e^{i\pi} = -1
+        \end{equation}
+        
+        O ambiente \ltx|equation| também tem a versão estrelada (\ltx|equation*|), que não mostra a numeração. A utilização é equivalente:
+        \begin{minted}[autogobble]{latex}
+            \begin{equation*}
+                e^{i\pi} = -1
+            \end{equation*}
+        \end{minted}
+    
+    \section{Matemática em várias linhas}
+        
+        Também pode ser do interesse do autor escrever algumas linhas de equações. Por exemplo, um certo teorema diz que, para qualquer $ n \in \mathbb{N} $, 64 é um fator de $ 3^{2n+2} - 8n - 9 $. A prova deste teorema envolve mostrar o que segue.
+        \begin{align*}
+            3^{2(n + 1) + 2} - 8(n + 1) - 9 &= 3^{2n + 2 + 2} - 8n - 9 \\
+            &= (3^{2n+2})3^2 - 8n - 17 \\
+            &= (3^{2n+2})9 - 8n - 17
+        \end{align*}
+        
+        E isso pode ser feito com:
+        
+        \begin{minted}[autogobble]{latex}
+            \begin{align*}
+                3^{2(n+1)+2} - 8(n+1) -9 &= 3^{2n+2+2} - 8n -9 \\
+                &= (3^{2n+2})3^2 - 8n - 17 \\
+                &= (3^{2n+2})9 - 8n - 17
+            \end{align*}
+        \end{minted}
+        
+        Mais uma vez, a versão estrelada (\ltx|align*|) serve para remover a numeração das equações. No ambiente \ltx|align|, cada linha se termina com \ltx|\\| (exceto e última) e as equações são alinhadas pela presença do caractere \ltx|&|.
+    
+    \section{Escrevendo equações matemáticas}
+    
+        O \LaTeX\ possui uma sintaxe própria para inserção de equações. Embora ela possa ser assustadora no começo, o tempo mostra que, na verdade, é bem simples.
+        
+        Para começar a escrever suas equações, recomendo a utilização de algum editor visual de equações que gere código \LaTeX. \url{https://latex4technics.com/}, \url{https://latex.codecogs.com/legacy/eqneditor/editor.php} e \url{https://www.tutorialspoint.com/latex_equation_editor.htm} são três sugestões.
+        
+        Embora a sintaxe não seja muito complicada, algumas coisas são realmente incômodas de se ler em um documento. A que primeiro me vem à mente é a utilização de $ x $ como multiplicador, resultando em coisas como $ 5xx^2 + 2xx $ (quando deveria ser $ 5\times x^2 + 2\times x $). Para evitar isso, elenco algumas coisas importantes:
+        \begin{itemize}
+            \item Todas as letras dentro de um ambiente matemático serão consideradas variáveis e tratadas como tal, sendo tipografadas em itálico.
+            \item Os espaços não são relevantes dentro do ambiente matemático. Para forçar espaços, é necessário usar comandos especiais (\ltx|\,|, \ltx|\;|, \ltx|\quad|, \ltx|\qquad| e etc).
+            \item Ambientes matemáticos não podem possuir linhas vazias.
+            \item Multiplicações \emph{nunca} devem ser feitas utilizando caracteres normais. Por exemplo, \emph{nunca} escreva \ltx|$ axb $| ($ axb $) ou \ltx|$ a.b $| ($ a.b $) para representar multiplicação. Existem comandos especiais para tal: \ltx|$ a \times b $| ($ a \times b $) e \ltx|$ a \cdot b $| ($ a \cdot b $). Ajude o \LaTeX\ a te ajudar.
+            \item Chaves (\ltx|{ ... }|) são utilizadas para agrupar elementos. Por exemplo, ao tentar escrever $ 2^{n+1} $, um desavisado poderia tentar escrever \ltx|$ 2^n+1 $|, o que resultaria em: $ 2^n+1 $. A forma correta é \ltx|$ 2^{n+1} $|.
+            \item Como dito, chaves são caracteres especiais. Se precisar que ela seja, de fato, impressa, utilize os \emph{escape} \ltx|\{| e \ltx|\}| ou os comandos \ltx|\lbrace| e \ltx|\rbrace|.
+            \item Os parênteses e colchetes têm um tamanho fixo, mesmo em um ambiente matemático. Para que eles acompanhem o tamanho do conteúdo, utilize os modificadores \ltx|\left| e \ltx|\right| antes de cada delimitador, por exemplo:
+            \[ 2 \times \left( \frac{2}{5} + \frac{2}{6} \right) \]
+            pode ser escrito como:
+            \begin{minted}[autogobble]{latex}
+            \[ 2 \times \left( \frac{2}{5} + \frac{2}{6} \right) \]
+            \end{minted}
+        \end{itemize}
+
+\chapter{Alguns pacotes interessantes inclusos neste modelo}
+
+    O \LaTeX\ só é um processador tão flexível graças à facilidade de utilizar pacotes feitos para resolver problemas específicos. Mostrarei alguns exemplos.
+
+    \section{Fórmulas e equações químicas: o pacote \texttt{mhchem}}
+        Por exemplo, o pacote \ltx|mhchem| permite escrever facilmente equações químicas. Por exemplo, veja o equilíbrio de autoprotólise da água (\ce{H2O}).
+        \[ \ce{H2O <=> H+ + OH-} \]
+        
+        Como pode ser visto no código, o comando \ltx|\ce{}| pode ser utilizado para tipografar automaticamente fórmulas e equações químicas. Para mais detalhes quanto à utilização, veja a \href{https://ctan.org/pkg/mhchem}{documentação} do \ltx|mhchem|.
+        
+        O \texttt{mhchem} funcionará com este modelo de toda forma, mas, para que o \TeX studio apresente as sugestões de código, inclua o seguinte comando no seu preâmbulo (antes de \ltx|\begin{document}|):
+        
+        \begin{minted}[autogobble]{latex}
+            \usepackage[version=4]{mhchem}
+        \end{minted}
+    
+    \section{Unidades e notação científica: o pacote \texttt{siunitx}}
+    
+        O \ltx|siunitx| permite tipografar automaticamente unidades físicas, notação científica e erros (acompanhe o código fonte para que este parágrafo faça sentido). Por exemplo, sabemos que \SI{1}{\newton} é o mesmo que \SI{1}{\kilo\gram\meter\per\square\second}, e dizemos isso usando o comando \ltx|\SI{valor}{unidade}|. E também sabemos que, em português, é necessário escrever \num{0.5} com vírgulas, e não com pontos. Por isso gostamos de incluir todos os números no comando \ltx|\num{}|. Poderíamos ainda obter um valor como \SI{1.465(8) e3}{\joule}, que seria equivalente a \SI{1.465(8)}{\kilo\joule}. Para escrever só a unidade, podemos usar o comando \ltx|\si{}| para dizer que a unidade de área é o \si{\meter\squared}.
+        
+        O \texttt{siunitx} funcionará com este modelo de toda forma, mas, para que o \TeX studio apresente as sugestões de código, inclua o seguinte comando no seu preâmbulo (antes de \ltx|\begin{document}|):
+        \begin{minted}[autogobble]{latex}
+            \usepackage{siunitx}
+        \end{minted}
+
+\chapter{Gerenciando referências bibliográficas}
+
+    O \LaTeX\ também facilita -- e muito -- o trabalho de gerenciar referências bibliográficas. Em particular, o bib\LaTeX{} (sucessor do bib\TeX) permite a utilização de estilos específicos para a bibliografia. Para saber como utilizar a formatação nos padrões ABNT, leia o projeto \texttt{\href{https://github.com/abntex/biblatex-abnt}{biblatex-abnt}}.
+
+
+
+% ----------------------------------------------------------
+% Para mostrar as referências bibliográficas, descomente
+% as duas linhas a seguir.
+% Para referências no padrão ABNT, veja: https://github.com/abntex/biblatex-abnt
+% ----------------------------------------------------------
+% \postextual
+% \printbibliography
+    
+\end{document}
